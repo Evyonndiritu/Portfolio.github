@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image links</title>
+    <style>
+        body{
+            background-color:white;
+            font-family: Arial, sans-serif;
+            font-size: 50px;
+            margin: 20px;
+        }
+        h1,h2,h3{
+            color: black;
+        }
+
+        img{
+            max-width: 200px;
+            height: auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <section id="HOME">
+    <h1>Technology</h1>
+    <P>Welcome to link images website</P>
+    <img src="tech1.jpeg" alt="technology image">
+    </section>
+
+    <section id="Gallery">
+        <h2>Nature</h2>
+        <P>This displays a grid of linked images related to nature</P>
+        <img src="nature.jpeg" alt="Nature image">
+        </section>
+
+        <section id="Menu">
+            <h3>Menu</h3>
+            <P>This provides a list of food items</P>
+            <ul>
+                <h1>Fish</h1>
+                <li><img src="food1.jpg" alt="first food image"></li>
+                <h1>Shawarma</h1>
+                <li><img src="food2.jpg" alt="second food image"></li>
+        </ul>
+            </section>
+    
+</body>
+</html>
