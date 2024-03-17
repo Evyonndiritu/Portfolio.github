@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>John Doe</h1>
+</header>
+
+<section class="introduction">
+  <h2>Introduction</h2>
+  <p>Hello, I'm John Doe. I'm a web developer passionate about creating engaging and interactive web experiences.</p>
+</section>
+
+<section class="skills">
+  <h2>Skills</h2>
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+    <li>React</li>
+    <li>Node.js</li>
+  </ul>
+</section>
+
+<footer class="contact">
+  <h2>Contact Information</h2>
+  <p>Email: john@example.com</p>
+  <p>Social Media: 
+    <a href="#">Twitter</a>, 
+    <a href="#">LinkedIn</a>, 
+    <a href="#">GitHub</a>
+  </p>
+</footer>
+
+</body>
+</html>
+
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  padding: 20px;
+  color: white;
+}
+
+.introduction {
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.skills {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.skills ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skills li {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.contact {
+  background-color: #333;
+  padding: 20px;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  header, .introduction, .skills, .contact {
+    padding: 10px;
+  }
+}
