@@ -1,0 +1,32 @@
+void main() {
+  // Integer data type (int)
+  int age = 25;
+  print("Age: $age");
+
+  // Double data type (double)
+  double weight = 65.5;
+  print("Weight: $weight");
+
+  // String data type (String)
+  String name = "John Doe";
+  print("Name: $name");
+
+  // List data type (List)
+  List<int> numbers = [1, 2, 3, 4, 5];
+  print("Numbers: $numbers");
+
+  // Map data type (Map)
+  Map<String, dynamic> person = {
+    'name': 'Alice',
+    'age': 30,
+    'isEmployed': true,
+  };
+  print("Person: $person");
+
+  // Accessing individual elements in the list and map
+  int firstNumber = numbers.first;
+  print("First number in the list: $firstNumber");
+
+  String personName = person['name'];
+  print("Person's name: $personName");
+}
