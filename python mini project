@@ -1,0 +1,42 @@
+import json
+from difflib import get_close_matches
+
+# Load dictionary data from JSON file
+def load_dictionary():
+    with open('dictionary.json') as f:
+        data = json.load(f)
+    return data
+
+# Function to return definition of a word
+def get_definition(word, dictionary):
+    word = word.lower()
+    if word in dictionary:
+        return dictionary[word]
+    elif word.title() in dictionary:  # Check for capitalized words
+        return dictionary[word.title()]
+    elif word.upper() in dictionary:  # Check for all uppercase words
+        return dictionary[word.upper()]
+    else:
+        close_matches = get_close_matches(word, dictionary.keys())
+        if close_matches:
+            suggestion = close_matches[0]
+            response = input(f"Did you mean '{suggestion}' instead? Enter Y if yes, or N if no: ")
+            if response.lower() == 'y':
+                return dictionary[suggestion]
+            else:
+                return "Word not found. Please double check your spelling."
+        else:
+            return "Word not found. Please double check your spelling."
+
+# Main function
+def main():
+    dictionary = load_dictionary()
+    while True:
+        word = input("Enter a word to search for its definition (or 'exit' to quit): ")
+        if word.lower() == 'exit':
+            break
+        definition = get_definition(word, dictionary)
+        print(definition)
+
+if __name__ == "__main__":
+    main()
