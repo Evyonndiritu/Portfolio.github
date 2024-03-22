@@ -1,0 +1,70 @@
+import 'dart:io';
+
+// Interface definition
+abstract class Animal {
+  void makeSound();
+}
+
+// Base class with inheritance
+class LivingBeing {
+  void exist() {
+    print('Living beings exist.');
+  }
+}
+
+// Class implementing an interface and overriding a method
+class Dog extends LivingBeing implements Animal {
+  @override
+  void makeSound() {
+    print('Dog barks!');
+  }
+
+  void fetch() {
+    print('Dog fetches.');
+  }
+}
+
+// Class initialized with data from a file
+class Person {
+  late String name;
+  late int age;
+
+  Person(this.name, this.age);
+
+  void displayInfo() {
+    print('Name: $name, Age: $age');
+  }
+}
+
+void main() {
+  // Create an instance of Dog
+  var dog = Dog();
+
+  // Demonstrate overriding method
+  dog.exist(); // Inherited from LivingBeing
+  dog.makeSound(); // Overridden method from Animal interface
+  dog.fetch(); // Method specific to Dog class
+
+  // Initialize an instance of Person with data from a file
+  var person = _loadPersonFromFile('person_data.txt');
+  person.displayInfo();
+
+  // Method demonstrating the use of a loop
+  _printNumbers();
+}
+
+// Load Person data from a file
+Person _loadPersonFromFile(String filename) {
+  var file = File(filename);
+  var lines = file.readAsLinesSync();
+  var data = lines.first.split(',');
+  return Person(data[0], int.parse(data[1]));
+}
+
+// Method demonstrating the use of a loop
+void _printNumbers() {
+  print('Printing numbers from 1 to 5:');
+  for (var i = 1; i <= 5; i++) {
+    print(i);
+  }
+}
