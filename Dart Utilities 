@@ -1,0 +1,59 @@
+int sumOfNumbers(int num1, int num2) {
+  return num1 + num2;
+}
+
+void printNumbers() {
+  for (int i = 1; i <= 10; i++) {
+    print(i);
+  }
+}
+
+void checkString(String value) {
+  switch (value) {
+    case "apple":
+      print("It's a fruit.");
+      break;
+    case "banana":
+      print("It's also a fruit.");
+      break;
+    case "carrot":
+      print("It's a vegetable.");
+      break;
+    default:
+      print("Unknown value");
+  }
+}
+
+void printNumbersWhileLoop() {
+  int num = 20;
+  while (num >= 10) {
+    print(num);
+    num--;
+  }
+}
+
+void checkEvenOdd(int number) {
+  if (number % 2 == 0) {
+    print("Even");
+  } else {
+    print("Odd");
+  }
+}
+
+int findLargestNumber(List<int> numbers) {
+  return numbers.reduce((value, element) => value > element ? value : element);
+}
+
+void main() {
+  List<int> numbers = [4, 7, 2, 10, 5];
+  print(findLargestNumber(numbers));
+}
+
+void main() {
+  try {
+    double result = 10 / 0;
+    print(result);
+  } catch (e) {
+    print("Error: $e");
+  }
+}
