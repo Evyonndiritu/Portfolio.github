@@ -1,0 +1,53 @@
+class CashRegister {
+  List<String> shoppingCart = [];
+  Map<String, double> itemPrices = {
+    'Phone': 300,
+    'Smart TV': 220,
+    'Gaming Console': 150
+  };
+
+  void addItem(String itemName) {
+    if (itemPrices.containsKey(itemName)) {
+      shoppingCart.add(itemName);
+      print('$itemName added to the shopping cart.');
+    } else {
+      print('Sorry, we don\'t sell $itemName.');
+    }
+  }
+
+  double calculateTotalPrice() {
+    double totalPrice = 0;
+    for (String item in shoppingCart) {
+      totalPrice += itemPrices[item]!;
+    }
+    return totalPrice;
+  }
+
+  void pay(double paymentAmount) {
+    double totalPrice = calculateTotalPrice();
+    if (totalPrice > 400) {
+      totalPrice *= 0.9; // Apply 10% discount
+    }
+
+    print('Total price: \$${totalPrice.toStringAsFixed(2)}');
+
+    if (paymentAmount >= totalPrice) {
+      double change = paymentAmount - totalPrice;
+      print('Thank you for the purchase! Your change is \$${change.toStringAsFixed(2)}');
+    } else {
+      print('Sorry, you don\'t have enough money to purchase the items.');
+    }
+  }
+}
+
+void main() {
+  CashRegister cashRegister = CashRegister();
+
+  // Add items to the shopping cart
+  cashRegister.addItem('Phone');
+  cashRegister.addItem('Smart TV');
+  cashRegister.addItem('Gaming Console');
+
+  // Calculate total price and process payment
+  cashRegister.pay(600); // Example payment amount
+}
