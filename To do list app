@@ -1,0 +1,154 @@
+Create a Project Directory:
+mkdir todo-list-app
+cd todo-list-app
+
+Initialize a Git Repository:
+git init
+
+index.html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div id="task-form">
+            <input type="text" id="task-title" placeholder="Task Title">
+            <input type="text" id="task-desc" placeholder="Task Description">
+            <input type="date" id="task-date">
+            <button id="add-task">Add Task</button>
+        </div>
+        <ul id="task-list"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+styles.css:
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+}
+#task-form {
+    display: flex;
+    flex-direction: column;
+}
+#task-form input, #task-form button {
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 16px;
+}
+#task-list {
+    list-style: none;
+    padding: 0;
+}
+#task-list li {
+    background: #f9f9f9;
+    margin: 5px 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.completed {
+    text-decoration: line-through;
+}
+
+
+Implementing Functionality with JavaScript
+script.js:
+
+document.addEventListener('DOMContentLoaded', () => {
+    const taskForm = document.getElementById('task-form');
+    const taskTitle = document.getElementById('task-title');
+    const taskDesc = document.getElementById('task-desc');
+    const taskDate = document.getElementById('task-date');
+    const addTaskButton = document.getElementById('add-task');
+    const taskList = document.getElementById('task-list');
+
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    const renderTasks = () => {
+        taskList.innerHTML = '';
+        tasks.forEach((task, index) => {
+            const taskItem = document.createElement('li');
+            taskItem.classList.add(task.completed ? 'completed' : '');
+            taskItem.innerHTML = `
+                <span>${task.title} - ${task.description} (Due: ${task.date})</span>
+                <div>
+                    <button onclick="editTask(${index})">Edit</button>
+                    <button onclick="deleteTask(${index})">Delete</button>
+                    <button onclick="toggleTask(${index})">${task.completed ? 'Undo' : 'Complete'}</button>
+                </div>
+            `;
+            taskList.appendChild(taskItem);
+        });
+    };
+
+    const saveTasks = () => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    };
+
+    const addTask = () => {
+        const title = taskTitle.value;
+        const description = taskDesc.value;
+        const date = taskDate.value;
+        if (title && date) {
+            tasks.push({ title, description, date, completed: false });
+            saveTasks();
+            renderTasks();
+            taskTitle.value = '';
+            taskDesc.value = '';
+            taskDate.value = '';
+        }
+    };
+
+    window.deleteTask = (index) => {
+        tasks.splice(index, 1);
+        saveTasks();
+        renderTasks();
+    };
+
+    window.editTask = (index) => {
+        const task = tasks[index];
+        taskTitle.value = task.title;
+        taskDesc.value = task.description;
+        taskDate.value = task.date;
+        addTaskButton.innerText = 'Update Task';
+        addTaskButton.onclick = () => {
+            tasks[index] = { title: taskTitle.value, description: taskDesc.value, date: taskDate.value, completed: task.completed };
+            saveTasks();
+            renderTasks();
+            addTaskButton.innerText = 'Add Task';
+            addTaskButton.onclick = addTask;
+        };
+    };
+
+    window.toggleTask = (index) => {
+        tasks[index].completed = !tasks[index].completed;
+        saveTasks();
+        renderTasks();
+    };
+
+    addTaskButton.addEventListener('click', addTask);
+
+    renderTasks();
+});
+
+
