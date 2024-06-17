@@ -1,0 +1,46 @@
+# file_handling_assignment.py
+
+def create_and_write_file():
+    try:
+        # Create a new file and write to it
+        with open('my_file.txt', 'w') as file:
+            file.write("First line: Hello, World!\n")
+            file.write("Second line: The answer is 42.\n")
+            file.write("Third line: Python is awesome!\n")
+        print("File created and initial content written.")
+    except (FileNotFoundError, PermissionError) as e:
+        print(f"An error occurred while creating or writing to the file: {e}")
+    finally:
+        print("Create and write operation completed.")
+
+def read_file():
+    try:
+        # Read the file contents
+        with open('my_file.txt', 'r') as file:
+            content = file.read()
+            print("File content read successfully.")
+            print("File contents:")
+            print(content)
+    except (FileNotFoundError, PermissionError) as e:
+        print(f"An error occurred while reading the file: {e}")
+    finally:
+        print("Read operation completed.")
+
+def append_to_file():
+    try:
+        # Append to the file
+        with open('my_file.txt', 'a') as file:
+            file.write("Fourth line: Appending more text.\n")
+            file.write("Fifth line: Numbers are still cool: 12345.\n")
+            file.write("Sixth line: Keep coding!\n")
+        print("Additional content appended to the file.")
+    except (FileNotFoundError, PermissionError) as e:
+        print(f"An error occurred while appending to the file: {e}")
+    finally:
+        print("Append operation completed.")
+
+# Perform the file operations
+create_and_write_file()
+read_file()
+append_to_file()
+read_file()
