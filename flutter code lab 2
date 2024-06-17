@@ -1,0 +1,100 @@
+// main.dart
+
+import 'package:flutter/material.dart';
+import 'screen1.dart'; // Import your screens
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Navigation Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(),
+        '/screen1': (context) => Screen1(),
+        // Define more routes as needed
+      },
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Welcome to the Home Page!',
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/screen1');
+              },
+              child: Text('Go to Screen 1'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+// main.dart
+
+import 'package:flutter/material.dart';
+import 'screen1.dart'; // Import your screens
+import 'screen2.dart'; // Import additional screens
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Tabs Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: DefaultTabController(
+        length: 2, // Number of tabs
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Tabs Demo'),
+            bottom: TabBar(
+              tabs: [
+                Tab(text: 'Tab 1'),
+                Tab(text: 'Tab 2'),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              Screen1(), // Screen content for Tab 1
+              Screen2(), // Screen content for Tab 2
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
