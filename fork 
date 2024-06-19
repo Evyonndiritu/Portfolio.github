@@ -1,0 +1,15 @@
+# Clone the forked repository
+git clone https://github.com/YOUR_USERNAME/lms.git
+cd lms
+
+# Create a new branch
+git checkout -b Evyon Ndiritu 
+
+# Make your changes here
+
+# Stage and commit your changes
+git add .
+git commit -m "Completed the assigned tasks"
+
+# Push your changes to your forked repository
+git push origin Evyon Ndiritu 
