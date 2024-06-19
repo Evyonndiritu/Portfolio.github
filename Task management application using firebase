@@ -1,0 +1,111 @@
+users: {
+  userId: {
+    email: string,
+    name: string
+  }
+}
+
+tasks: {
+  taskId: {
+    userId: string,
+    title: string,
+    description: string,
+    priority: string,
+    dueDate: timestamp,
+    status: string
+  }
+}
+
+npm install firebase
+
+// src/firebase.js
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /tasks/{taskId} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
+    }
+  }
+}
+
+npm install -g firebase-tools
+firebase login
+firebase init
+firebase deploy
+
+import React, { useState } from 'react';
+import { auth } from './firebase';
+
+const SignUp = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+      // Handle additional user setup (e.g., adding to Firestore)
+    } catch (error) {
+      console.error("Error signing up: ", error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSignUp}>
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+      <button type="submit">Sign Up</button>
+    </form>
+  );
+};
+
+export default SignUp;
+
+import React, { useState, useEffect } from 'react';
+import { firestore } from './firebase';
+
+const Tasks = () => {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = firestore.collection('tasks').onSnapshot((snapshot) => {
+      const tasksData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setTasks(tasksData);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <div>
+      <h2>Tasks</h2>
+      <ul>
+        {tasks.map(task => (
+          <li key={task.id}>{task.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Tasks;
